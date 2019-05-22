@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+>
+
+	<http use-expressions="true" create-session="stateless" entry-point-ref="digestEntryPoint">
+
+		<custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="customUserDetailsService" />
+	</authentication-manager>
+
+	<global-method-security pre-post-annotations="enabled" secured-annotations="enabled" proxy-target-class="true" />
+
+<!-- 	<beans:bean id="digestEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint"> -->
+<!-- 		<beans:property name="realmName" value="Realm via Digest Authentication" /> -->
+<!-- 		<beans:property name="key" value="acegi" /> -->
+<!-- 	</beans:bean> -->
+
+<!-- 	<beans:bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter"> -->
+<!-- 		<beans:property name="userDetailsService" ref="customUserDetailsService" /> -->
+<!-- 		<beans:property name="authenticationEntryPoint" ref="digestEntryPoint" /> -->
+<!-- 	</beans:bean> -->
+
+</beans:beans>

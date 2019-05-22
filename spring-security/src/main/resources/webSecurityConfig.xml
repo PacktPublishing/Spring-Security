@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<http auto-config="true"> <!-- auto-config="true" -->
+
+		<intercept-url pattern="/admin/**" access="IS_AUTHENTICATED_FULLY" />
+
+		<!-- <form-login /> -->
+		<!-- <form-login login-page="/login.html" /> -->
+		<!-- <form-login login-page="/login.html" authentication-failure-url="/login.html?error=true" /> -->
+		<form-login login-page="/login.html" authentication-failure-url="/login.html?error=true" default-target-url="/index.html" />
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="user1" password="user1Pass" authorities="ROLE_SUPERVISOR, ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>

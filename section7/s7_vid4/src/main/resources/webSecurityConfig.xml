@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+>
+
+	<http use-expressions="true">
+
+		<intercept-url pattern="/authenticated.html" access="hasRole('ROLE_READ_PAGES')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_READ_PAGES')" />
+
+<!-- 		<form-login login-page="/login.html" default-target-url="/authenticated.html" authentication-failure-url="/login.html?error=true" /> -->
+<!-- 		<logout logout-success-url="/login.html" /> -->
+		<http-basic />
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="secUserService" />
+	</authentication-manager>
+
+	<global-method-security pre-post-annotations="enabled">
+		<expression-handler ref="expressionHandler" />
+	</global-method-security>
+
+</beans:beans>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<http use-expressions="true">
+
+		<intercept-url pattern="/open.html" access="isAuthenticated()" />
+		<intercept-url pattern="/authenticated.html" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/admin/dev_only.html" access="isAuthenticated() and principal.username=='admin2'" />
+		<!-- <intercept-url pattern="/admin/full_auth_only.html" access="isFullyAuthenticated()" /> -->
+		<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_NEW')" />
+
+		<form-login login-page="/login.html" default-target-url="/authenticated.html" authentication-failure-url="/login.html?error=true" />
+		<logout />
+
+		<remember-me key="myAppKey" />
+
+	</http>
+
+	<authentication-manager>
+		<ldap-authentication-provider user-search-base="ou=people" user-search-filter="uid={0}" group-search-base="ou=roles" group-search-filter="member={0}" />
+	</authentication-manager>
+
+	<ldap-server root="dc=springframework,dc=org" />
+	<!-- <ldap-server url="ldap://localhost:10389/dc=springframework,dc=org" /> -->
+	
+</beans:beans>
