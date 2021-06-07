@@ -209,7 +209,7 @@ Section 3 - Video 2</description>
 
 		<!-- logging -->
 		<org.slf4j.version>1.7.3</org.slf4j.version>
-		<logback.version>1.0.10</logback.version>
+		<logback.version>1.2.0</logback.version>
 
 		<!-- testing -->
 		<junit.version>4.11</junit.version>
